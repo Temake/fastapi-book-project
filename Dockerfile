@@ -1,18 +1,22 @@
-# Use the official Python image
-FROM python:3.10
+# Stage 1: Build FastAPI app
+FROM python:3.10 AS fastapi
 
-# Set the working directory
 WORKDIR /app
 
-# Copy the application files
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
 COPY . .
 
-# Install dependencies
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
-
-# Expose port
 EXPOSE 8000
-
-# Run the FastAPI app with Uvicorn
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+# Stage 2: Nginx Proxy
+FROM nginx:latest
+
+COPY --from=fastapi /app /app
+COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
