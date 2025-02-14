@@ -28,4 +28,4 @@ jobs:
       run: curl -fsSL https://railway.app/install.sh | sh
 
     - name: Deploy to Railway
-      run: railway up --service YOUR_SERVICE_NAME --token ${{ secrets.RAILWAY_TOKEN }}
+      run: railway up --service fastapi-nginx-app --token ${{ secrets.RAILWAY_TOKEN }}
