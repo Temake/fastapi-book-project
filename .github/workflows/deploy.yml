@@ -1,4 +1,4 @@
-name: Deploy to Render
+name: Deploy to Railway
 
 on:
   push:
@@ -24,9 +24,18 @@ jobs:
         docker build -t ${{ secrets.DOCKER_USERNAME }}/fastapi-nginx-app:latest .
         docker push ${{ secrets.DOCKER_USERNAME }}/fastapi-nginx-app:latest
 
-    # 🔹 Deploy to Railway (Using Railway CLI)
-    - name: Deploy to Railway
+    - name: Install Railway CLI
       run: |
         curl -fsSL https://railway.app/install.sh | sh
+
+    - name: Verify Railway CLI Installation
+      run: |
+        railway --version
+
+    - name: Log in to Railway
+      run: |
         railway login --token ${{ secrets.RAILWAY_TOKEN }}
-        railway up --service fastapi-nginx-app
+
+    - name: Deploy to Railway
+      run: |
+        railway up
