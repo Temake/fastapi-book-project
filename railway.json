@@ -1,0 +1,19 @@
+{
+    "services": [
+      {
+        "name": "fastapi",
+        "image": "temake/fastapi-nginx-app:latest",
+        "envVars": {
+          "PORT": "8000"
+        }
+      },
+      {
+        "name": "nginx",
+        "image": "nginx",
+        "envVars": {
+          "PORT": "80"
+        }
+      }
+    ]
+  }
+  
