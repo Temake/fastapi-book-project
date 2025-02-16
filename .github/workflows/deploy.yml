@@ -3,7 +3,7 @@ name: Deploy FastAPI to GCP VM
 on:
   push:
     branches:
-      - main  # Change to your branch name if different
+      - main  # Change to your branch name if differentaa
 
 jobs:
   deploy:
