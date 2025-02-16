@@ -3,7 +3,7 @@ name: Deploy FastAPI to Google Cloud VM
 on:
   push:
     branches:
-      - main  # Adjust this to match your deployment branch
+      - main  
 
 jobs:
   deploy:
